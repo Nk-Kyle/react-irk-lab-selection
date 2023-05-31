@@ -1,27 +1,11 @@
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import NavbarComponent from "../components/navbar";
+import useUserDetail from "../components/useUserDetail";
 
 export const Home = () => {
-  const navigate = useNavigate();
-  const [user_detail, setUserDetail] = useState({});
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("irk-user");
-
-    if (!storedUser) {
-      navigate("/login");
-    } else {
-      const parsedUser = JSON.parse(storedUser);
-      setUserDetail(parsedUser);
-      console.log(parsedUser);
-    }
-  }, [navigate]);
+  const { userDetail, loading} = useUserDetail();
 
   return (
-    <div>
-      <h1>Home</h1>
-      <p>Home page content</p>
-      <p>Hello {user_detail.name}</p>
-    </div>
+    <NavbarComponent/>
+    
   );
 };
