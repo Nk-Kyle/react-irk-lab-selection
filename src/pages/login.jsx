@@ -1,7 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { handleCredentialResponse } from "../utils/oauth";
+import ErrorModal from "../components/errorModal";
 
 const Login = () => {
+
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   useEffect(() => {
     /* global google */
     google.accounts.id.initialize({
@@ -23,12 +28,18 @@ const Login = () => {
     handleCredentialResponse(response)
       .then((resp) => {
         if (!resp[0]) {
-          alert(resp[1]);
+          setErrorMessage(resp[1]);
+          setShowError(true);
         }
       })
-      .catch((error) => {
-        alert("Token verification error");
+      .catch(() => {
+        setErrorMessage("Token verification error");
+        setShowError(true);
       });
+  };
+
+  const handleCloseError = () => {
+    setShowError(false);
   };
 
   return (
@@ -46,6 +57,12 @@ const Login = () => {
           <div id="g_id_button"></div>
         </div>
       </div>
+
+      <ErrorModal
+        show={showError}
+        onClose={handleCloseError}
+        error={errorMessage}
+      />
     </div>
   );
 };
