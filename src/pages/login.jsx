@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { handleCredentialResponse } from '../utils/oauth'
 import ErrorModal from '../components/errorModal'
 
-const Login = () => {
+export const Login = () => {
   const [showError, setShowError] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
 
@@ -65,5 +65,3 @@ const Login = () => {
     </div>
   )
 }
-
-export default Login

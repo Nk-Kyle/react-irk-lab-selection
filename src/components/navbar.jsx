@@ -1,6 +1,6 @@
 import { Navbar, Nav, Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom' // Import the Link component
-import useUserDetail from './useUserDetail'
+import { useUserDetail } from './useUserDetail'
 
 const NavbarComponent = () => {
   const { userDetail } = useUserDetail()

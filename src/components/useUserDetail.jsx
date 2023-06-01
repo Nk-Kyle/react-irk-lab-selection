@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-const useUserDetail = () => {
+export const useUserDetail = () => {
   const [userDetail, setUserDetail] = useState({})
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
@@ -19,5 +19,3 @@ const useUserDetail = () => {
 
   return { userDetail, loading }
 }
-
-export default useUserDetail
