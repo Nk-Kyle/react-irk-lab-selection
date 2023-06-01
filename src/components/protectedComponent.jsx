@@ -1,4 +1,3 @@
-import { Navigate } from 'react-router-dom'
 import { useUserDetail } from '../utils/useUserDetail'
 
 const protectionLevel = {
@@ -7,11 +6,7 @@ const protectionLevel = {
   assistant: 2,
 }
 
-export const ProtectedRoute = ({
-  element: Component,
-  allowedRole,
-  ...rest
-}) => {
+export const ProtectedComponent = ({ allowedRole, children }) => {
   const { userDetail, loading } = useUserDetail()
 
   const hasPermission = () => {
@@ -26,9 +21,5 @@ export const ProtectedRoute = ({
     return <div>Loading...</div>
   }
 
-  return hasPermission() ? (
-    <Component {...rest} />
-  ) : (
-    <Navigate to="/" replace={true} />
-  )
+  return hasPermission() ? children : <></>
 }

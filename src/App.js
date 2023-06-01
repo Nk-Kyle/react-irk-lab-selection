@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { Home } from './pages/home'
 import { Login } from './pages/login'
 import { Contact } from './pages/contact'
+import { Manage } from './pages/manage'
 import { ProtectedRoute } from './components/protectedRoute'
 
 function App() {
@@ -23,6 +24,10 @@ function App() {
       <Route
         path="/contact"
         element={<ProtectedRoute element={Contact} allowedRole="assistant" />}
+      />
+      <Route
+        path="/manage"
+        element={<ProtectedRoute element={Manage} allowedRole="assistant" />}
       />
     </Routes>
   )
