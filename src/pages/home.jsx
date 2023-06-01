@@ -1,11 +1,8 @@
-import NavbarComponent from "../components/navbar";
-import useUserDetail from "../components/useUserDetail";
+import NavbarComponent from '../components/navbar'
+import useUserDetail from '../components/useUserDetail'
 
 export const Home = () => {
-  const { userDetail, loading} = useUserDetail();
+  const { userDetail, loading } = useUserDetail()
 
-  return (
-    <NavbarComponent/>
-    
-  );
-};
+  return <NavbarComponent />
+}

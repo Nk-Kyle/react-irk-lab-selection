@@ -1,7 +1,7 @@
-import React from "react";
-import { Modal, Button } from "react-bootstrap";
+import React from 'react'
+import { Modal, Button } from 'react-bootstrap'
 
-const ErrorModal = ({show, error, onClose }) => {
+const ErrorModal = ({ show, error, onClose }) => {
   return (
     <Modal show={show} onHide={onClose} centered>
       <Modal.Header closeButton>
@@ -16,7 +16,7 @@ const ErrorModal = ({show, error, onClose }) => {
         </Button>
       </Modal.Footer>
     </Modal>
-  );
-};
+  )
+}
 
-export default ErrorModal;
+export default ErrorModal

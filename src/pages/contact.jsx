@@ -1,8 +1,5 @@
-import NavbarComponent from "../components/navbar";
+import NavbarComponent from '../components/navbar'
 
 export const Contact = () => {
-
-  return (
-    <NavbarComponent/>
-  );
-};
+  return <NavbarComponent />
+}
