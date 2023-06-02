@@ -1,5 +1,6 @@
+import React from 'react'
 import { Navbar, Nav, Image } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import { useUserDetail } from '../utils/useUserDetail'
 import { ProtectedComponent } from './protectedComponent'
 
@@ -20,20 +21,20 @@ export const NavbarComponent = () => {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="me-auto">
-          <Nav.Link as={Link} to="/about">
+          <Nav.Link as={NavLink} exact to="/about" activeClassName="active">
             About
           </Nav.Link>
-          <Nav.Link as={Link} to="/contact">
+          <Nav.Link as={NavLink} exact to="/contact" activeClassName="active">
             Contact
           </Nav.Link>
           <ProtectedComponent allowedRole="assistant">
-            <Nav.Link as={Link} to="/manage">
+            <Nav.Link as={NavLink} exact to="/manage" activeClassName="active">
               Manage
             </Nav.Link>
           </ProtectedComponent>
         </Nav>
         <Nav>
-          <Nav.Link as={Link} to="/profile">
+          <Nav.Link as={NavLink} exact to="/profile" activeClassName="active">
             {userDetail.name}
           </Nav.Link>
           <Nav.Link onClick={logout}>Logout</Nav.Link>
