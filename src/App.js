@@ -7,11 +7,13 @@ import { Contact } from './pages/contact'
 import { Manage } from './pages/manage'
 import { ProtectedRoute } from './components/protectedRoute'
 
+import { getWithExpiry } from './utils/expiryStorage'
+
 function App() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const token = localStorage.getItem('irk-token')
+    const token = getWithExpiry('irk-token')
     if (!token) {
       navigate('/login')
     }

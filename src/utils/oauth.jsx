@@ -1,3 +1,5 @@
+import { setWithExpiry } from './expiryStorage'
+
 async function handleCredentialResponse(response) {
   if (response.credential) {
     try {
@@ -31,7 +33,7 @@ async function verifyToken(token) {
     // Parse the response and return true if the token is valid
     const data = await response.json()
     if (data.status === 'OK') {
-      localStorage.setItem('irk-token', token)
+      setWithExpiry('irk-token', token, 60 * 60 * 1000)
       localStorage.setItem('irk-user', JSON.stringify(data.user))
     }
     return response.ok

@@ -10,6 +10,7 @@ export const Manage = () => {
   const [description, setDescription] = useState('')
   const [imageUrl, setImageUrl] = useState('')
   const [startDate, setStartDate] = useState('')
+  const [score, setScore] = useState(0)
   const [validated, setValidated] = useState(false)
   const [fetchedData, setFetchedData] = useState(false)
   const [showSuccessModal, setShowSuccessModal] = useState(false)
@@ -45,6 +46,7 @@ export const Manage = () => {
         setTitle(data.task.title)
         setDescription(data.task.description)
         setImageUrl(data.task.imageUrl)
+        setScore(data.task.score)
 
         // Set the start Date from data.task.startDate of format timestamp
         const startDate = new Date(data.task.startDate)
@@ -75,6 +77,7 @@ export const Manage = () => {
           imageUrl: imageUrl,
           startDate: startDate,
           link: link,
+          score: score,
         }
         fetch(process.env.REACT_APP_BACKEND + '/api/task', {
           method: 'POST',
@@ -179,6 +182,18 @@ export const Manage = () => {
                     placeholder="Enter start date"
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
+                  />
+                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group controlId="formScore" className="mb-3">
+                  <Form.Label>Score</Form.Label>
+                  <Form.Control
+                    required
+                    type="number"
+                    placeholder="Enter score"
+                    value={score}
+                    onChange={(e) => setScore(e.target.value)}
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
