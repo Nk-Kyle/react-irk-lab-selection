@@ -1,17 +1,16 @@
 import React from 'react'
 import { Modal, Button } from 'react-bootstrap'
-
-export const ErrorModal = ({ show, error, onClose }) => {
+export const SuccessModal = ({ show, MessageComponent, onClose }) => {
   return (
-    <Modal show={show} onHide={onClose} centered>
+    <Modal show={show} onHide={onClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Error</Modal.Title>
+        <Modal.Title>Success</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>{error}</p>
+        <MessageComponent />
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={onClose}>
+        <Button variant="primary" onClick={onClose}>
           Close
         </Button>
       </Modal.Footer>

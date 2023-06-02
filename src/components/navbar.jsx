@@ -13,7 +13,7 @@ export const NavbarComponent = () => {
   }
 
   return (
-    <Navbar bg="dark" variant="dark" expand="lg" className="px-4">
+    <Navbar bg="dark" variant="dark" expand="lg" className="px-4 mb-4">
       <Navbar.Brand as={Link} to="/">
         Seleksi Lab IRK
       </Navbar.Brand>

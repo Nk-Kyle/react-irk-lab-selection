@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { handleCredentialResponse } from '../utils/oauth'
-import ErrorModal from '../components/errorModal'
+import { ErrorModal } from '../components/errorModal'
 
 export const Login = () => {
   const [showError, setShowError] = useState(false)
