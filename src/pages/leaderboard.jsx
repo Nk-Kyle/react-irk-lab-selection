@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { NavbarComponent } from '../components/navbar'
 import { Table } from 'react-bootstrap'
 import { ErrorModal } from '../components/errorModal'
+import { useNavigate } from 'react-router-dom'
 
 export const Leaderboard = () => {
   const [showErrorModal, setShowErrorModal] = useState(false)
@@ -12,6 +13,7 @@ export const Leaderboard = () => {
   }, [])
 
   const [scores, setScores] = useState([])
+  const navigate = useNavigate()
 
   const fetchScores = async () => {
     try {
@@ -39,6 +41,10 @@ export const Leaderboard = () => {
 
   const handleCloseError = () => {
     setShowErrorModal(false)
+  }
+
+  const handleNavigate = (id) => {
+    navigate(`/task/${id}`)
   }
 
   const users = Array.from(
@@ -71,7 +77,16 @@ export const Leaderboard = () => {
           <tr>
             <th>User</th>
             {scores.map((task) => (
-              <th key={task.id} className="text-center">
+              <th
+                key={task.id}
+                className="text-center"
+                onClick={() => handleNavigate(task.id)}
+                style={{ cursor: 'pointer' }}
+                onMouseOver={(e) =>
+                  (e.target.style.backgroundColor = '#f5f5f5')
+                }
+                onMouseOut={(e) => (e.target.style.backgroundColor = '')}
+              >
                 {task.title}
               </th>
             ))}
