@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Button, Container, Row, Col } from 'react-bootstrap'
-
+import { Form, Button, Container, Row, Col, Spinner } from 'react-bootstrap'
 import { NavbarComponent } from '../components/navbar'
 import { SuccessModal } from '../components/successModal'
 import { ErrorModal } from '../components/errorModal'
@@ -14,6 +13,7 @@ export const Task = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false)
   const [showErrorModal, setShowErrorModal] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
+  const [loading, setLoading] = useState(false) // Added loading state
   const { id } = useParams()
   const navigate = useNavigate()
 
@@ -66,6 +66,8 @@ export const Task = () => {
         e.stopPropagation()
       } else {
         e.preventDefault()
+        setLoading(true)
+
         const data = {
           link: link,
         }
@@ -85,7 +87,8 @@ export const Task = () => {
           if (res.status === 404) {
             navigate('/404')
           } else if (res.status === 403) {
-            setErrorMsg("Submission has already been scored. Can't edit.")
+            setErrorMsg("Submission had already been scored. Can't edit.")
+            setShowErrorModal(true)
             return
           } else {
             setErrorMsg(errorMessage)
@@ -102,6 +105,8 @@ export const Task = () => {
       setErrorMsg(errorMessage)
       setShowErrorModal(true)
       return
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -139,8 +144,18 @@ export const Task = () => {
                     Please provide a valid link.
                   </Form.Control.Feedback>
                 </Form.Group>
-                <Button variant="primary" type="submit" disabled={!fetchedData}>
-                  Submit
+                <Button
+                  variant="primary"
+                  type="submit"
+                  disabled={!fetchedData || loading}
+                >
+                  {loading ? (
+                    <span>
+                      <Spinner animation="border" size="sm" /> Submitting...
+                    </span>
+                  ) : (
+                    'Submit'
+                  )}
                 </Button>
               </Form>
             </div>
