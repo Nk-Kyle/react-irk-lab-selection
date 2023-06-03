@@ -5,6 +5,8 @@ import { Home } from './pages/home'
 import { Login } from './pages/login'
 import { Contact } from './pages/contact'
 import { Manage } from './pages/manage'
+import { Task } from './pages/task'
+import { NotFound } from './pages/notFound'
 import { ProtectedRoute } from './components/protectedRoute'
 
 import { getWithExpiry } from './utils/expiryStorage'
@@ -31,6 +33,8 @@ function App() {
         path="/manage"
         element={<ProtectedRoute element={Manage} allowedRole="assistant" />}
       />
+      <Route path="/task/:id" element={<Task />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   )
 }

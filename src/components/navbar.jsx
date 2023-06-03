@@ -21,20 +21,20 @@ export const NavbarComponent = () => {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="me-auto">
-          <Nav.Link as={NavLink} exact to="/about" activeClassName="active">
+          <Nav.Link as={NavLink} exact="true" to="/about">
             About
           </Nav.Link>
-          <Nav.Link as={NavLink} exact to="/contact" activeClassName="active">
+          <Nav.Link as={NavLink} exact="true" to="/contact">
             Contact
           </Nav.Link>
           <ProtectedComponent allowedRole="assistant">
-            <Nav.Link as={NavLink} exact to="/manage" activeClassName="active">
+            <Nav.Link as={NavLink} exact="true" to="/manage">
               Manage
             </Nav.Link>
           </ProtectedComponent>
         </Nav>
         <Nav>
-          <Nav.Link as={NavLink} exact to="/profile" activeClassName="active">
+          <Nav.Link as={NavLink} exact="true" to="/profile">
             {userDetail.name}
           </Nav.Link>
           <Nav.Link onClick={logout}>Logout</Nav.Link>
