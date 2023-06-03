@@ -6,6 +6,8 @@ import React, { useEffect, useState } from 'react'
 export const Home = () => {
   const [tasks, setTasks] = useState([])
   const [showErrorModal, setShowErrorModal] = useState(false)
+  const errorMessage =
+    'Reload the page and try again. If the problem persists, contact the administrator.'
   useEffect(() => {
     fetchTasks()
   }, [])
@@ -45,7 +47,11 @@ export const Home = () => {
       <NavbarComponent />
       <h1 className="text-center">Welcome To Seleksi IRK</h1>
       <TaskGrid tasks={tasks} />
-      <ErrorModal show={showErrorModal} onClose={handleCloseError} error="" />
+      <ErrorModal
+        show={showErrorModal}
+        onClose={handleCloseError}
+        error={errorMessage}
+      />
     </div>
   )
 }

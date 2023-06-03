@@ -2,16 +2,21 @@ import React, { useState } from 'react'
 import { Button, ListGroup, Form, Spinner } from 'react-bootstrap'
 
 export const SubmissionList = ({ submissions, onScoreUpdate }) => {
-  const [newScore, setNewScore] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [loadingStates, setLoadingStates] = useState(
+    submissions.map(() => false),
+  )
+  const [scores, setScores] = useState(submissions.map(() => ''))
 
-  const handleScoreUpdate = async (submission, newScore) => {
+  const handleScoreUpdate = async (submission, index) => {
+    const newScore = scores[index]
     const parsedScore = parseInt(newScore, 10)
     if (isNaN(parsedScore) || parsedScore < 0) {
-      setLoading(false)
       return
     }
-    setLoading(true)
+
+    const updatedLoadingStates = [...loadingStates]
+    updatedLoadingStates[index] = true
+    setLoadingStates(updatedLoadingStates)
 
     const data = {
       student_email: submission.student_email,
@@ -33,7 +38,9 @@ export const SubmissionList = ({ submissions, onScoreUpdate }) => {
 
       if (response.ok) {
         onScoreUpdate(true)
-        setNewScore(0)
+        const updatedScores = [...scores]
+        updatedScores[index] = newScore
+        setScores(updatedScores)
       } else {
         onScoreUpdate(false)
       }
@@ -41,16 +48,21 @@ export const SubmissionList = ({ submissions, onScoreUpdate }) => {
       onScoreUpdate(false)
     }
 
-    setLoading(false)
+    const resetLoadingStates = [...loadingStates]
+    resetLoadingStates[index] = false
+    setLoadingStates(resetLoadingStates)
   }
 
-  const handleInputChange = (e) => {
-    setNewScore(e.target.value)
+  const handleInputChange = (e, index) => {
+    const newScore = e.target.value
+    const updatedScores = [...scores]
+    updatedScores[index] = newScore
+    setScores(updatedScores)
   }
 
   return (
     <ListGroup>
-      {submissions.map((submission) => (
+      {submissions.map((submission, index) => (
         <ListGroup.Item key={submission.student_email}>
           <div className="d-flex flex-wrap align-items-center">
             <div className="flex-grow-1">
@@ -74,19 +86,19 @@ export const SubmissionList = ({ submissions, onScoreUpdate }) => {
                 <Form.Control
                   type="number"
                   placeholder="Enter new score"
-                  value={newScore}
-                  onChange={handleInputChange}
+                  value={scores[index]}
+                  onChange={(e) => handleInputChange(e, index)}
                 />
               </div>
             </div>
 
             <div>
               <Button
-                onClick={() => handleScoreUpdate(submission, newScore)}
+                onClick={() => handleScoreUpdate(submission, index)}
                 variant="primary"
-                disabled={loading}
+                disabled={loadingStates[index]}
               >
-                {loading ? (
+                {loadingStates[index] ? (
                   <Spinner animation="border" size="sm" />
                 ) : (
                   'Update Score'

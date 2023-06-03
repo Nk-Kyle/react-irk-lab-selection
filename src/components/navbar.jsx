@@ -27,6 +27,9 @@ export const NavbarComponent = () => {
           <Nav.Link as={NavLink} exact="true" to="/contact">
             Contact
           </Nav.Link>
+          <Nav.Link as={NavLink} exact="true" to="/leaderboard">
+            Leaderboard
+          </Nav.Link>
           <ProtectedComponent allowedRole="assistant">
             <Nav.Link as={NavLink} exact="true" to="/manage">
               Manage

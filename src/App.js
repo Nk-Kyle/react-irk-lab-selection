@@ -6,6 +6,7 @@ import { Login } from './pages/login'
 import { Contact } from './pages/contact'
 import { Manage } from './pages/manage'
 import { Task } from './pages/task'
+import { Leaderboard } from './pages/leaderboard'
 import { NotFound } from './pages/notFound'
 import { ProtectedRoute } from './components/protectedRoute'
 // import { Analytics } from '@vercel/analytics/react'
@@ -26,10 +27,8 @@ function App() {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Home />} />
-      <Route
-        path="/contact"
-        element={<ProtectedRoute element={Contact} allowedRole="assistant" />}
-      />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/leaderboard" element={<Leaderboard />} />
       <Route
         path="/manage"
         element={<ProtectedRoute element={Manage} allowedRole="assistant" />}
