@@ -18,7 +18,7 @@ export const TaskGrid = ({ tasks }) => {
               <Card.Img variant="top" src={task.imageUrl} alt="Task" />
               <Card.Body className="flex-grow-1">
                 <Card.Title>{task.title}</Card.Title>
-                <Card.Text>{task.description}</Card.Text>
+                <div style={{ whiteSpace: 'pre-wrap' }}>{task.description}</div>
               </Card.Body>
               <ListGroup className="list-group-flush">
                 <ListGroup.Item>

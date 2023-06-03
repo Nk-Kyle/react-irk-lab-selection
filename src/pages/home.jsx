@@ -1,8 +1,6 @@
 import { NavbarComponent } from '../components/navbar'
-import { ProtectedComponent } from '../components/protectedComponent'
 import { TaskGrid } from '../components/taskGrid'
 import { ErrorModal } from '../components/errorModal'
-// import useUserDetail from '../components/useUserDetail'
 import React, { useEffect, useState } from 'react'
 
 export const Home = () => {
@@ -45,9 +43,7 @@ export const Home = () => {
   return (
     <div>
       <NavbarComponent />
-      <ProtectedComponent allowedRole="student">
-        <h1 className="text-center">Welcome To Seleksi IRK</h1>
-      </ProtectedComponent>
+      <h1 className="text-center">Welcome To Seleksi IRK</h1>
       <TaskGrid tasks={tasks} />
       <ErrorModal show={showErrorModal} onClose={handleCloseError} error="" />
     </div>
