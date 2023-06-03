@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Button, Container, Row, Col } from 'react-bootstrap'
+import { Form, Button, Container, Row, Col, Spinner } from 'react-bootstrap'
 import { NavbarComponent } from '../components/navbar'
 import { SuccessModal } from '../components/successModal'
 import { ErrorModal } from '../components/errorModal'
+import { SubmissionList } from '../components/submissionList'
 
 export const Manage = () => {
   const [link, setLink] = useState('')
@@ -15,10 +16,13 @@ export const Manage = () => {
   const [fetchedData, setFetchedData] = useState(false)
   const [showSuccessModal, setShowSuccessModal] = useState(false)
   const [resultData, setResultData] = useState({})
+  const [submissionList, setSubmissionList] = useState([])
   const [showErrorModal, setShowErrorModal] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     fetchTask()
+    fetchSubmissions()
   }, [])
 
   const errorMessage =
@@ -63,6 +67,32 @@ export const Manage = () => {
     }
   }
 
+  const fetchSubmissions = async () => {
+    try {
+      const res = await fetch(
+        process.env.REACT_APP_BACKEND + '/api/submissions',
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'irk-token': localStorage.getItem('irk-token'),
+          },
+        },
+      )
+
+      if (!res.ok) {
+        setShowErrorModal(true)
+        return
+      }
+
+      const data = await res.json()
+      setSubmissionList(data.submissions)
+    } catch (err) {
+      setShowErrorModal(true)
+      return
+    }
+  }
+
   const handleSubmit = (e) => {
     try {
       const form = e.currentTarget
@@ -71,6 +101,7 @@ export const Manage = () => {
         e.stopPropagation()
       } else {
         e.preventDefault()
+        setLoading(true)
         const data = {
           title: title,
           description: description,
@@ -100,11 +131,22 @@ export const Manage = () => {
             setShowErrorModal(true)
             return
           })
+          .finally(() => {
+            setLoading(false)
+          })
       }
       setValidated(true)
     } catch (err) {
       setShowErrorModal(true)
       return
+    }
+  }
+
+  const handleScoreUpdate = (isSuccess) => {
+    if (isSuccess) {
+      fetchSubmissions()
+    } else {
+      setShowErrorModal(true)
     }
   }
 
@@ -121,7 +163,7 @@ export const Manage = () => {
       <NavbarComponent />
       <Container>
         <Row>
-          <Col xs={8}>
+          <Col xs={6}>
             <div>
               <h2>Add/Update Your Question</h2>
               <Form noValidate validated={validated} onSubmit={handleSubmit}>
@@ -143,9 +185,10 @@ export const Manage = () => {
                     required
                     as="textarea"
                     rows={3}
-                    placeholder="Enter description"
+                    placeholder="Enter description (max 100 characters)"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
+                    maxLength={100}
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
@@ -198,16 +241,29 @@ export const Manage = () => {
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
 
-                <Button variant="primary" type="submit" disabled={!fetchedData}>
-                  Submit
+                <Button
+                  variant="primary"
+                  type="submit"
+                  disabled={!fetchedData || loading}
+                >
+                  {loading ? (
+                    <span>
+                      <Spinner animation="border" size="sm" /> Loading...
+                    </span>
+                  ) : (
+                    'Submit'
+                  )}
                 </Button>
               </Form>
             </div>
           </Col>
 
-          <Col xs={4}>
-            <h2>Statistics</h2>
-            <p>Some statistics go here...</p>
+          <Col xs={6}>
+            <h2>Submissions</h2>
+            <SubmissionList
+              submissions={submissionList}
+              onScoreUpdate={handleScoreUpdate}
+            />
           </Col>
         </Row>
       </Container>
