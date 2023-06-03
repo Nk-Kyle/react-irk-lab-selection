@@ -5,6 +5,8 @@ import { SuccessModal } from '../components/successModal'
 import { ErrorModal } from '../components/errorModal'
 import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
+import { ProtectedComponent } from '../components/protectedComponent'
+import { SubmissionEntries } from '../components/submissionEntries'
 
 export const Task = () => {
   const [link, setLink] = useState('')
@@ -13,12 +15,14 @@ export const Task = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false)
   const [showErrorModal, setShowErrorModal] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
-  const [loading, setLoading] = useState(false) // Added loading state
+  const [loading, setLoading] = useState(false)
+  const [submissionList, setSubmissionList] = useState([])
   const { id } = useParams()
   const navigate = useNavigate()
 
   useEffect(() => {
     fetchTask()
+    fetchSubmissions()
   })
 
   const errorMessage =
@@ -53,6 +57,32 @@ export const Task = () => {
       setFetchedData(true)
     } catch (err) {
       setErrorMsg(errorMessage)
+      setShowErrorModal(true)
+      return
+    }
+  }
+
+  const fetchSubmissions = async () => {
+    try {
+      const res = await fetch(
+        process.env.REACT_APP_BACKEND + '/api/submissions/' + id,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'irk-token': localStorage.getItem('irk-token'),
+          },
+        },
+      )
+
+      if (!res.ok) {
+        setShowErrorModal(true)
+        return
+      }
+
+      const data = await res.json()
+      setSubmissionList(data.submissions)
+    } catch (err) {
       setShowErrorModal(true)
       return
     }
@@ -123,43 +153,45 @@ export const Task = () => {
       <NavbarComponent />
       <Container>
         <Row>
-          <Col xs={8}>
-            <h2>Statistics</h2>
-            <p>Statistics go here</p>
+          <Col xs={6}>
+            <h2>Submissions</h2>
+            <SubmissionEntries submissions={submissionList} />
           </Col>
-          <Col xs={4}>
-            <div>
-              <h2>Submit/Edit Your Submission</h2>
-              <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                <Form.Group controlId="formBasicLink" className="mb-3">
-                  <Form.Label>Link</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter link"
-                    value={link}
-                    onChange={(e) => setLink(e.target.value)}
-                    required
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid link.
-                  </Form.Control.Feedback>
-                </Form.Group>
-                <Button
-                  variant="primary"
-                  type="submit"
-                  disabled={!fetchedData || loading}
-                >
-                  {loading ? (
-                    <span>
-                      <Spinner animation="border" size="sm" /> Submitting...
-                    </span>
-                  ) : (
-                    'Submit'
-                  )}
-                </Button>
-              </Form>
-            </div>
-          </Col>
+          <ProtectedComponent allowedRole={'student'}>
+            <Col xs={6}>
+              <div>
+                <h2>Submit/Edit Your Submission</h2>
+                <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                  <Form.Group controlId="formBasicLink" className="mb-3">
+                    <Form.Label>Link</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter link"
+                      value={link}
+                      onChange={(e) => setLink(e.target.value)}
+                      required
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      Please provide a valid link.
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    disabled={!fetchedData || loading}
+                  >
+                    {loading ? (
+                      <span>
+                        <Spinner animation="border" size="sm" /> Submitting...
+                      </span>
+                    ) : (
+                      'Submit'
+                    )}
+                  </Button>
+                </Form>
+              </div>
+            </Col>
+          </ProtectedComponent>
         </Row>
       </Container>
       <SuccessModal

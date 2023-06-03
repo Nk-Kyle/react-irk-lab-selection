@@ -8,6 +8,7 @@ import { Manage } from './pages/manage'
 import { Task } from './pages/task'
 import { NotFound } from './pages/notFound'
 import { ProtectedRoute } from './components/protectedRoute'
+// import { Analytics } from '@vercel/analytics/react'
 
 import { getWithExpiry } from './utils/expiryStorage'
 
