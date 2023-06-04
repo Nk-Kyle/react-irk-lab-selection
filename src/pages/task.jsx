@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Button, Container, Row, Col, Spinner } from 'react-bootstrap'
+import { Form, Button, Container, Row, Col, Spinner, Image } from 'react-bootstrap'
 import { NavbarComponent } from '../components/navbar'
 import { SuccessModal } from '../components/successModal'
 import { ErrorModal } from '../components/errorModal'
 import { useParams } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { ProtectedComponent } from '../components/protectedComponent'
 import { SubmissionEntries } from '../components/submissionEntries'
 
@@ -16,14 +16,15 @@ export const Task = () => {
   const [showErrorModal, setShowErrorModal] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
   const [loading, setLoading] = useState(false)
+  const [task, setTask] = useState(null)
   const [submissionList, setSubmissionList] = useState([])
   const { id } = useParams()
   const navigate = useNavigate()
 
   useEffect(() => {
     fetchTask()
-    fetchSubmissions()
-  })
+    fetchSubmissions() // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const errorMessage =
     'Reload the page and try again. If the problem persists, contact the administrator.'
@@ -54,6 +55,7 @@ export const Task = () => {
       const data = await res.json()
 
       data.task.submission ? setLink(data.task.submission.link) : setLink('')
+      setTask(data.task)
       setFetchedData(true)
     } catch (err) {
       setErrorMsg(errorMessage)
@@ -154,14 +156,75 @@ export const Task = () => {
       <Container>
         <Row>
           <Col xs={6}>
-            <h2>Submissions</h2>
-            <SubmissionEntries submissions={submissionList} />
+            <div>
+              <h2>Task</h2>
+              {task ? (
+                // Image make it centered
+                <div>
+                  <div className="mb-3">
+                    <Image
+                      src={task.imageUrl}
+                      alt="Task"
+                      // Max width of 30 % of the screen
+                      style={{ maxWidth: '30vw', maxHeight: 'auto' }}
+                      rounded
+
+                    />
+                  </div>
+                  <table className="table">
+                    <tbody>
+                      <tr>
+                        <th scope="row">Title</th>
+                        <td>{task.title}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Description</th>
+                        <td style={{ whiteSpace: 'pre-wrap' }}>{task.description}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Max Score</th>
+                        <td>{task.score}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Link</th>
+                        <td>
+                          <Link to={task.link}>{task.link}</Link>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Submissions</th>
+                        <td> {task.submissionCount} </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Assistant</th>
+                        <td>
+                          {task.assistant_name ? (
+                            <Link to={'/profile/' + task.assistant_id}>
+                              {task.assistant_name}
+                            </Link>
+                          ) : (
+                            'No assistant assigned'
+                          )}
+                        </td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <div>
+                  <Spinner animation="border" size="sm" /> Loading...
+                </div>
+              )}
+            </div>
+
           </Col>
-          <ProtectedComponent allowedRole={'student'}>
-            <Col xs={6}>
-              <div>
+
+          <Col xs={6}>
+            <div>
+              <ProtectedComponent allowedRole={'student'}>
                 <h2>Submit/Edit Your Submission</h2>
-                <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                <Form noValidate validated={validated} onSubmit={handleSubmit} className="mb-5">
                   <Form.Group controlId="formBasicLink" className="mb-3">
                     <Form.Label>Link</Form.Label>
                     <Form.Control
@@ -189,9 +252,12 @@ export const Task = () => {
                     )}
                   </Button>
                 </Form>
-              </div>
-            </Col>
-          </ProtectedComponent>
+              </ProtectedComponent>
+              <h2>Submissions</h2>
+              <SubmissionEntries submissions={submissionList} />
+            </div>
+          </Col>
+
         </Row>
       </Container>
       <SuccessModal
@@ -211,6 +277,6 @@ export const Task = () => {
         onClose={handleCloseError}
         error={errorMsg}
       />
-    </div>
+    </div >
   )
 }
