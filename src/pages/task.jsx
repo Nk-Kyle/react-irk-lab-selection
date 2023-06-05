@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react'
 import {
   Form,
   Button,
@@ -8,156 +8,156 @@ import {
   Spinner,
   Image,
   Table,
-} from "react-bootstrap";
-import { NavbarComponent } from "../components/navbar";
-import { SuccessModal } from "../components/successModal";
-import { ErrorModal } from "../components/errorModal";
-import { useParams } from "react-router-dom";
-import { useNavigate, Link } from "react-router-dom";
-import { ProtectedComponent } from "../components/protectedComponent";
-import { SubmissionEntries } from "../components/submissionEntries";
+} from 'react-bootstrap'
+import { NavbarComponent } from '../components/navbar'
+import { SuccessModal } from '../components/successModal'
+import { ErrorModal } from '../components/errorModal'
+import { useParams } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+import { ProtectedComponent } from '../components/protectedComponent'
+import { SubmissionEntries } from '../components/submissionEntries'
 
 export const Task = () => {
-  const [link, setLink] = useState("");
-  const [validated, setValidated] = useState(false);
-  const [fetchedData, setFetchedData] = useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [showErrorModal, setShowErrorModal] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [task, setTask] = useState(null);
-  const [submissionList, setSubmissionList] = useState([]);
-  const { id } = useParams();
-  const navigate = useNavigate();
+  const [link, setLink] = useState('')
+  const [validated, setValidated] = useState(false)
+  const [fetchedData, setFetchedData] = useState(false)
+  const [showSuccessModal, setShowSuccessModal] = useState(false)
+  const [showErrorModal, setShowErrorModal] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [task, setTask] = useState(null)
+  const [submissionList, setSubmissionList] = useState([])
+  const { id } = useParams()
+  const navigate = useNavigate()
 
   useEffect(() => {
-    fetchTask();
-    fetchSubmissions(); // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    fetchTask()
+    fetchSubmissions() // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const errorMessage =
-    "Reload the page and try again. If the problem persists, contact the administrator.";
+    'Reload the page and try again. If the problem persists, contact the administrator.'
 
   const fetchTask = async () => {
     try {
       const res = await fetch(
-        process.env.REACT_APP_BACKEND + "/api/task/" + id,
+        process.env.REACT_APP_BACKEND + '/api/task/' + id,
         {
-          method: "GET",
+          method: 'GET',
           headers: {
-            "Content-Type": "application/json",
-            "irk-token": localStorage.getItem("irk-token"),
+            'Content-Type': 'application/json',
+            'irk-token': localStorage.getItem('irk-token'),
           },
-        }
-      );
+        },
+      )
 
       if (!res.ok) {
         if (res.status === 404) {
-          navigate("/404");
+          navigate('/404')
         } else {
-          setErrorMsg(errorMessage);
-          setShowErrorModal(true);
-          return;
+          setErrorMsg(errorMessage)
+          setShowErrorModal(true)
+          return
         }
       }
 
-      const data = await res.json();
+      const data = await res.json()
 
-      data.task.submission ? setLink(data.task.submission.link) : setLink("");
-      setTask(data.task);
-      setFetchedData(true);
+      data.task.submission ? setLink(data.task.submission.link) : setLink('')
+      setTask(data.task)
+      setFetchedData(true)
     } catch (err) {
-      setErrorMsg(errorMessage);
-      setShowErrorModal(true);
-      return;
+      setErrorMsg(errorMessage)
+      setShowErrorModal(true)
+      return
     }
-  };
+  }
 
   const fetchSubmissions = async () => {
     try {
       const res = await fetch(
-        process.env.REACT_APP_BACKEND + "/api/submissions/" + id,
+        process.env.REACT_APP_BACKEND + '/api/submissions/' + id,
         {
-          method: "GET",
+          method: 'GET',
           headers: {
-            "Content-Type": "application/json",
-            "irk-token": localStorage.getItem("irk-token"),
+            'Content-Type': 'application/json',
+            'irk-token': localStorage.getItem('irk-token'),
           },
-        }
-      );
+        },
+      )
 
       if (!res.ok) {
-        setShowErrorModal(true);
-        return;
+        setShowErrorModal(true)
+        return
       }
 
-      const data = await res.json();
-      setSubmissionList(data.submissions);
+      const data = await res.json()
+      setSubmissionList(data.submissions)
     } catch (err) {
-      setShowErrorModal(true);
-      return;
+      setShowErrorModal(true)
+      return
     }
-  };
+  }
 
   const handleSubmit = async (e) => {
     try {
-      const form = e.currentTarget;
+      const form = e.currentTarget
       if (form.checkValidity() === false) {
-        e.preventDefault();
-        e.stopPropagation();
+        e.preventDefault()
+        e.stopPropagation()
       } else {
-        e.preventDefault();
-        setLoading(true);
+        e.preventDefault()
+        setLoading(true)
 
         const data = {
           link: link,
-        };
+        }
         const res = await fetch(
-          process.env.REACT_APP_BACKEND + "/api/task/" + id,
+          process.env.REACT_APP_BACKEND + '/api/task/' + id,
           {
-            method: "POST",
+            method: 'POST',
             headers: {
-              "Content-Type": "application/json",
-              "irk-token": localStorage.getItem("irk-token"),
+              'Content-Type': 'application/json',
+              'irk-token': localStorage.getItem('irk-token'),
             },
             body: JSON.stringify(data),
-          }
-        );
+          },
+        )
 
         if (!res.ok) {
           if (res.status === 404) {
-            navigate("/404");
+            navigate('/404')
           } else if (res.status === 403) {
-            setErrorMsg("Submission had already been scored. Can't edit.");
-            setShowErrorModal(true);
-            return;
+            setErrorMsg("Submission had already been scored. Can't edit.")
+            setShowErrorModal(true)
+            return
           } else {
-            setErrorMsg(errorMessage);
-            setShowErrorModal(true);
-            return;
+            setErrorMsg(errorMessage)
+            setShowErrorModal(true)
+            return
           }
         }
-        const dataRes = await res.json();
-        setLink(dataRes.link);
-        setShowSuccessModal(true);
+        const dataRes = await res.json()
+        setLink(dataRes.link)
+        setShowSuccessModal(true)
       }
-      setValidated(true);
+      setValidated(true)
     } catch (err) {
-      setErrorMsg(errorMessage);
-      setShowErrorModal(true);
-      return;
+      setErrorMsg(errorMessage)
+      setShowErrorModal(true)
+      return
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   const handleCloseSuccessModal = () => {
-    setShowSuccessModal(false);
-  };
+    setShowSuccessModal(false)
+  }
 
   const handleCloseError = () => {
-    setShowErrorModal(false);
-  };
+    setShowErrorModal(false)
+  }
 
   return (
     <div>
@@ -185,7 +185,7 @@ export const Task = () => {
                       </tr>
                       <tr>
                         <th scope="row">Description</th>
-                        <td style={{ whiteSpace: "pre-wrap" }}>
+                        <td style={{ whiteSpace: 'pre-wrap' }}>
                           {task.description}
                         </td>
                       </tr>
@@ -196,7 +196,13 @@ export const Task = () => {
                       <tr>
                         <th scope="row">Link</th>
                         <td>
-                          <Link to={task.link}>{task.link}</Link>
+                          <Link
+                            to={task.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {task.link}
+                          </Link>
                         </td>
                       </tr>
                       <tr>
@@ -220,7 +226,7 @@ export const Task = () => {
 
           <Col sm={12} md={6}>
             <div>
-              <ProtectedComponent allowedRole={"student"}>
+              <ProtectedComponent allowedRole={'student'}>
                 <h2>Submit/Edit Your Submission</h2>
                 <Form
                   noValidate
@@ -251,7 +257,7 @@ export const Task = () => {
                         <Spinner animation="border" size="sm" /> Submitting...
                       </span>
                     ) : (
-                      "Submit"
+                      'Submit'
                     )}
                   </Button>
                 </Form>
@@ -280,5 +286,5 @@ export const Task = () => {
         error={errorMsg}
       />
     </div>
-  );
-};
+  )
+}

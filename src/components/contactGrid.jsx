@@ -1,6 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Card, Container, Row, Col, ListGroup, Button } from 'react-bootstrap'
+import {
+  Card,
+  Container,
+  Row,
+  Col,
+  ListGroup,
+  Button,
+  Image,
+} from 'react-bootstrap'
 
 export const ContactGrid = ({ contacts }) => {
   return (
@@ -9,7 +17,11 @@ export const ContactGrid = ({ contacts }) => {
         {contacts.map((contact, index) => (
           <Col key={index}>
             <Card className="h-100 d-flex flex-column">
-              <Card.Img variant="top" src={contact.picture} alt="Contact" />
+              <Card.Img
+                variant="top"
+                src={contact.picture?.replace('s96-c', 's200-c')}
+                alt="Contact"
+              />
               <Card.Body className="flex-grow-1">
                 <Card.Title>{contact.name ? contact.name : ''}</Card.Title>
                 {contact.email}
@@ -24,7 +36,12 @@ export const ContactGrid = ({ contacts }) => {
                         rel="noopener noreferrer"
                       >
                         <Button variant="outline-success" size="lg">
-                          Line ID: {contact.lineId}
+                          <Image
+                            src="/line.png"
+                            alt="Line"
+                            style={{ maxHeight: '3vh' }}
+                          />
+                          {' ' + contact.lineId}
                         </Button>
                       </Link>
                     </div>
@@ -39,7 +56,12 @@ export const ContactGrid = ({ contacts }) => {
                         rel="noopener noreferrer"
                       >
                         <Button variant="outline-info" size="lg">
-                          LinkdIn: {contact.linkdInHandle}
+                          <Image
+                            src="/linkdin.png"
+                            alt="LinkdIn"
+                            style={{ maxHeight: '3vh' }}
+                          />
+                          {' ' + contact.linkdInHandle}
                         </Button>
                       </Link>
                     </div>
@@ -54,7 +76,12 @@ export const ContactGrid = ({ contacts }) => {
                         rel="noopener noreferrer"
                       >
                         <Button variant="outline-warning" size="lg">
-                          Instagram: {contact.instagram}
+                          <Image
+                            src="/instagram.png"
+                            alt="Instagram"
+                            style={{ maxHeight: '3vh' }}
+                          />
+                          {' ' + contact.instagram}
                         </Button>
                       </Link>
                     </div>

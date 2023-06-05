@@ -37,9 +37,7 @@ export const NavbarComponent = () => {
           </ProtectedComponent>
         </Nav>
         <Nav>
-          <Nav.Link as={NavLink} exact="true" to="/profile">
-            {userDetail.name}
-          </Nav.Link>
+          <Nav.Link>{userDetail.name}</Nav.Link>
           <Nav.Link onClick={logout}>Logout</Nav.Link>
         </Nav>
         <Image
