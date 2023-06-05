@@ -8,6 +8,7 @@ import { Manage } from './pages/manage'
 import { Task } from './pages/task'
 import { Leaderboard } from './pages/leaderboard'
 import { NotFound } from './pages/notFound'
+import { About } from './pages/about'
 import { ProtectedRoute } from './components/protectedRoute'
 // import { Analytics } from '@vercel/analytics/react'
 
@@ -34,6 +35,7 @@ function App() {
         element={<ProtectedRoute element={Manage} allowedRole="assistant" />}
       />
       <Route path="/task/:id" element={<Task />} />
+      <Route path="/about" element={<About />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   )
