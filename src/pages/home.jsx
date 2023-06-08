@@ -2,10 +2,12 @@ import { NavbarComponent } from '../components/navbar'
 import { TaskGrid } from '../components/taskGrid'
 import { ErrorModal } from '../components/errorModal'
 import React, { useEffect, useState } from 'react'
+import { LoadingWrapper } from '../components/loadingWrapper'
 
 export const Home = () => {
   const [tasks, setTasks] = useState([])
   const [showErrorModal, setShowErrorModal] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const errorMessage =
     'Reload the page and try again. If the problem persists, contact the administrator.'
   useEffect(() => {
@@ -31,6 +33,7 @@ export const Home = () => {
 
       if (data.tasks !== null) {
         setTasks(data.tasks)
+        setIsLoading(false)
       }
     } catch (err) {
       setShowErrorModal(true)
@@ -46,7 +49,9 @@ export const Home = () => {
     <div>
       <NavbarComponent />
       <h1 className="text-center">Welcome To Seleksi IRK</h1>
-      <TaskGrid tasks={tasks} />
+      <LoadingWrapper isLoading={isLoading}>
+        <TaskGrid tasks={tasks} />
+      </LoadingWrapper>
       <ErrorModal
         show={showErrorModal}
         onClose={handleCloseError}

@@ -3,9 +3,11 @@ import { NavbarComponent } from '../components/navbar'
 import { Table } from 'react-bootstrap'
 import { ErrorModal } from '../components/errorModal'
 import { useNavigate } from 'react-router-dom'
+import { LoadingWrapper } from '../components/loadingWrapper'
 
 export const Leaderboard = () => {
   const [showErrorModal, setShowErrorModal] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const errorMessage =
     'Reload the page and try again. If the problem persists, contact the administrator.'
   useEffect(() => {
@@ -31,8 +33,8 @@ export const Leaderboard = () => {
       }
 
       const data = await res.json()
-      console.log(data.scores)
       setScores(data.scores)
+      setIsLoading(false)
     } catch (err) {
       setShowErrorModal(true)
       return
@@ -72,6 +74,7 @@ export const Leaderboard = () => {
     <div>
       <NavbarComponent />
       <h1 className="pb-3 mb-4 text-center">Leaderboard</h1>
+      <LoadingWrapper isLoading={isLoading}>
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -113,6 +116,7 @@ export const Leaderboard = () => {
           ))}
         </tbody>
       </Table>
+      </LoadingWrapper>
       <ErrorModal
         show={showErrorModal}
         onClose={handleCloseError}

@@ -69,7 +69,7 @@ export const SubmissionList = ({ submissions, onScoreUpdate }) => {
               <strong>Student:</strong> {submission.student_name}
               <div>
                 <strong>Last Updated:</strong>{' '}
-                {new Date(submission.updated_at).toDateString()}
+                {new Date(submission.updated_at).toLocaleString()}
               </div>
             </div>
             <div className="ml-auto">
