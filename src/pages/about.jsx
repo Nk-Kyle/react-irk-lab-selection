@@ -11,13 +11,13 @@ export const About = () => {
           <Accordion.Header>Selection Scheme</Accordion.Header>
           <Accordion.Body>
             <p>
-              Seleksi akan dilakukan dengan pengerjaan soal yang diberikan oleh
+              Seleksi akan dilakukan dengan cara pengerjaan task yang diberikan oleh
               masing-masing asisten yang akan menjadi penilai.
               <br />
               <br />
-              Tipe dan skema tiap soal dapat berbeda setiap asisten.
+              Tipe dan skema tiap task dapat berbeda setiap asisten.
               <br />
-              Mahasiswa yang lolos seleksi berdasarkan skor tertinggi pada akhir
+              Mahasiswa yang lolos seleksi dinilai berdasarkan leaderboard pada akhir
               seleksi yang diumumkan kemudian serta mempertimbangkan kebutuhan
               asisten Ganesha maupun Jatinangor.
               <br />
@@ -26,8 +26,13 @@ export const About = () => {
               <a href="/leaderboard">Leaderboard</a>.
               <br />
               <br />
-              Soal yang dapat dikerjakan akan muncul secara bertahap pada
-              halaman awal
+              Task yang dapat dikerjakan akan muncul pada &nbsp;
+              <a href="/">halaman awal</a>
+              <br/>
+              <br/>
+              Task akan bertambah seiring jalannya waktu
+              <br/>
+              Setiap penambahan task akan diumumkan ke grup line
             </p>
           </Accordion.Body>
         </Accordion.Item>
@@ -44,15 +49,23 @@ export const About = () => {
               </li>
               <li>
                 <p>
-                  Skor yang didapat adalah hasil perkalian bobot kecepatan
+                  Skor yang didapat adalah hasil perkalian bobot kecepatan (Multiplier)
                   dengan skor dasar nilai
                 </p>
               </li>
               <li>
                 <p>
-                  Bobot kecepatan untuk submisi terawal yang diacc adalah 100%
-                  dan berkurang sebesar 5% setiap submisi peserta selanjutnya
-                  dengan minimum 80%
+                  Multiplier untuk submisi pertama yang diacc oleh asisten adalah 100%
+                </p>
+              </li>
+              <li>
+                <p>
+                  Multiplier akan dikurangi nilainya sebesar 5% untuk setiap submisi masuk yang diacc oleh asisten
+                </p>
+              </li>
+              <li>
+                <p>
+                  Nilai minimum dari Multiplier adalah 80%
                 </p>
               </li>
             </ul>
