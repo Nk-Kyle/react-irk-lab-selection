@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Card, Container, Row, Col, ListGroup, Button } from 'react-bootstrap'
+import styles from './taskGrid.module.css'
 
 export const TaskGrid = ({ tasks }) => {
   const navigate = useNavigate()
@@ -14,13 +15,21 @@ export const TaskGrid = ({ tasks }) => {
       <Row xs={1} sm={2} md={3} lg={4} xl={4} className="g-4">
         {tasks.map((task, index) => (
           <Col key={index}>
-            <Card className="h-100 d-flex flex-column">
-              <Card.Img variant="top" src={task.imageUrl} alt="Task" />
-              <Card.Body className="flex-grow-1">
-                <Card.Title>{task.title}</Card.Title>
+            <Card className="d-flex flex-column">
+              <div onClick={() => handleTaskClick(task.id)} className={styles.container}>
+                <Card.Img variant="top" height='150px' style={{objectFit:'cover'}} src={task.imageUrl} alt="Task" />
+                <div className={styles.overlay}>
+                  <div className={styles.text}>Go to task</div>
+                </div>
+              </div>
+              {/* <Card.Body className="flex-grow-1">
+                <Card.Title></Card.Title>
                 <div style={{ whiteSpace: 'pre-wrap' }}>{task.description}</div>
-              </Card.Body>
+              </Card.Body> */}
               <ListGroup className="list-group-flush">
+                <ListGroup.Item>
+                  <h4 className="fw-bold">{task.title}</h4>
+                </ListGroup.Item>
                 <ListGroup.Item>
                   <span className="fw-bold">Start Date:</span>{' '}
                   {new Date(task.startDate).toLocaleString()}
@@ -32,7 +41,7 @@ export const TaskGrid = ({ tasks }) => {
                   <span className="fw-bold">Submissions:</span>{' '}
                   {task.submissionCount}
                 </ListGroup.Item>
-                <ListGroup.Item>
+                {/* <ListGroup.Item>
                   <div className="d-grid gap-2">
                     <Button
                       variant="outline-primary"
@@ -42,7 +51,7 @@ export const TaskGrid = ({ tasks }) => {
                       Go to Task
                     </Button>
                   </div>
-                </ListGroup.Item>
+                </ListGroup.Item> */}
               </ListGroup>
 
               <Card.Footer
@@ -54,7 +63,7 @@ export const TaskGrid = ({ tasks }) => {
                   alt="Assistant"
                   className="rounded-circle img-fluid me-2"
                   style={{
-                    maxHeight: '100%',
+                    maxHeight: '40px',
                     maxWidth: 'auto',
                     objectFit: 'contain',
                   }}

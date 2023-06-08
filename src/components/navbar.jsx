@@ -3,6 +3,7 @@ import { Navbar, Nav, Image } from 'react-bootstrap'
 import { NavLink, Link } from 'react-router-dom'
 import { useUserDetail } from '../utils/useUserDetail'
 import { ProtectedComponent } from './protectedComponent'
+import styles from './navbar.module.css'; 
 
 export const NavbarComponent = () => {
   const { userDetail } = useUserDetail()
@@ -37,7 +38,7 @@ export const NavbarComponent = () => {
           </ProtectedComponent>
         </Nav>
         <Nav>
-          <Nav.Link>{userDetail.name}</Nav.Link>
+          <Nav.Link className={styles.username}>{userDetail.name}</Nav.Link>
           <Nav.Link onClick={logout}>Logout</Nav.Link>
         </Nav>
         <Image

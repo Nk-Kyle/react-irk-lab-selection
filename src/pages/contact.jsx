@@ -2,10 +2,12 @@ import { NavbarComponent } from '../components/navbar'
 import { ErrorModal } from '../components/errorModal'
 import React, { useEffect, useState } from 'react'
 import { ContactGrid } from '../components/contactGrid'
+import { LoadingWrapper } from '../components/loadingWrapper'
 
 export const Contact = () => {
   const [contacts, setContacts] = useState([])
   const [showErrorModal, setShowErrorModal] = useState(false)
+  const [isLoading, setIsLoading] = useState(true);
   const errorMessage =
     'Reload the page and try again. If the problem persists, contact the administrator.'
   useEffect(() => {
@@ -30,6 +32,7 @@ export const Contact = () => {
       const data = await res.json()
 
       setContacts(data.contacts)
+      setIsLoading(false)
     } catch (err) {
       setShowErrorModal(true)
       return
@@ -44,7 +47,9 @@ export const Contact = () => {
     <div>
       <NavbarComponent />
       <h1 className="text-center">Contacts</h1>
-      <ContactGrid contacts={contacts} />
+      <LoadingWrapper isLoading={isLoading}>
+        <ContactGrid contacts={contacts} />
+      </LoadingWrapper>
       
       <ErrorModal
         show={showErrorModal}
