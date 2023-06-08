@@ -8,6 +8,7 @@ import {
   ListGroup,
   Button,
   Image,
+  Stack,
 } from 'react-bootstrap'
 
 export const ContactGrid = ({ contacts }) => {
@@ -26,7 +27,52 @@ export const ContactGrid = ({ contacts }) => {
                 <Card.Title>{contact.name ? contact.name : ''}</Card.Title>
                 {contact.email}
               </Card.Body>
-              <ListGroup className="list-group-flush">
+              <Stack className='mx-auto mb-3' direction="horizontal" gap={4}>
+                {
+                  contact.lineLink &&
+                  <Link 
+                  to={contact.lineLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    src="/line.png"
+                    alt="Line"
+                    style={{ maxHeight: '3vh' }}
+                  />
+                </Link>
+                }
+                
+                {
+                  contact.linkdInHandle &&
+                  <Link
+                  to={contact.linkdInLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                    <Image
+                      src="/linkdin.png"
+                      alt="LinkdIn"
+                      style={{ maxHeight: '3vh' }}
+                    />
+                </Link>
+                }
+                {
+                  contact.instagram &&
+                  <Link
+                  to={'https://www.instagram.com/' + contact.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    src="/instagram.png"
+                    alt="Instagram"
+                    style={{ maxHeight: '3vh' }}
+                  />
+                </Link>
+                }
+              </Stack>
+              {/* <ListGroup className="list-group-flush">
                 {contact.lineLink && (
                   <ListGroup.Item>
                     <div className="d-grid">
@@ -87,7 +133,7 @@ export const ContactGrid = ({ contacts }) => {
                     </div>
                   </ListGroup.Item>
                 )}
-                {/* <ListGroup.Item>
+                <ListGroup.Item>
                   <span className="fw-bold">Start Date:</span>{' '}
                   {new Date(task.startDate).toLocaleString()}
                 </ListGroup.Item>
@@ -108,8 +154,8 @@ export const ContactGrid = ({ contacts }) => {
                       Go to Task
                     </Button>
                   </div>
-                </ListGroup.Item> */}
-              </ListGroup>
+                </ListGroup.Item>
+              </ListGroup> */}
             </Card>
           </Col>
         ))}
