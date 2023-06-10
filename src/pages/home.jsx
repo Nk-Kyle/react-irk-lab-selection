@@ -3,11 +3,13 @@ import { TaskGrid } from '../components/taskGrid'
 import { ErrorModal } from '../components/errorModal'
 import React, { useEffect, useState } from 'react'
 import { LoadingWrapper } from '../components/loadingWrapper'
+import { Countdown } from '../components/countdown'
 
 export const Home = () => {
   const [tasks, setTasks] = useState([])
   const [showErrorModal, setShowErrorModal] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [endTime, setEndTime] = useState('')
   const errorMessage =
     'Reload the page and try again. If the problem persists, contact the administrator.'
   useEffect(() => {
@@ -35,6 +37,10 @@ export const Home = () => {
         setTasks(data.tasks)
         setIsLoading(false)
       }
+
+      if (data.setting?.endtime) {
+        setEndTime(data.setting.endtime.seconds)
+      }
     } catch (err) {
       setShowErrorModal(true)
       return
@@ -49,6 +55,7 @@ export const Home = () => {
     <div>
       <NavbarComponent />
       <h1 className="text-center">Welcome To Seleksi IRK</h1>
+      {endTime !== '' && <Countdown timestamp={endTime} />}
       <LoadingWrapper isLoading={isLoading}>
         <TaskGrid tasks={tasks} />
       </LoadingWrapper>
