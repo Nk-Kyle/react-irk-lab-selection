@@ -1,15 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import {
-  Card,
-  Container,
-  Row,
-  Col,
-  ListGroup,
-  Button,
-  Image,
-  Stack,
-} from 'react-bootstrap'
+import { Card, Container, Row, Col, Image, Stack } from 'react-bootstrap'
 
 export const ContactGrid = ({ contacts }) => {
   return (
@@ -27,50 +18,47 @@ export const ContactGrid = ({ contacts }) => {
                 <Card.Title>{contact.name ? contact.name : ''}</Card.Title>
                 {contact.email}
               </Card.Body>
-              <Stack className='mx-auto mb-3' direction="horizontal" gap={4}>
-                {
-                  contact.lineLink &&
-                  <Link 
-                  to={contact.lineLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Image
-                    src="/line.png"
-                    alt="Line"
-                    style={{ maxHeight: '3vh' }}
-                  />
-                </Link>
-                }
-                
-                {
-                  contact.linkdInHandle &&
+              <Stack className="mx-auto mb-3" direction="horizontal" gap={4}>
+                {contact.lineLink && (
                   <Link
-                  to={contact.linkdInLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                    to={contact.lineLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Image
+                      src="/line.png"
+                      alt="Line"
+                      style={{ maxHeight: '3vh' }}
+                    />
+                  </Link>
+                )}
+
+                {contact.linkdInHandle && (
+                  <Link
+                    to={contact.linkdInLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <Image
                       src="/linkdin.png"
                       alt="LinkdIn"
                       style={{ maxHeight: '3vh' }}
                     />
-                </Link>
-                }
-                {
-                  contact.instagram &&
+                  </Link>
+                )}
+                {contact.instagram && (
                   <Link
-                  to={'https://www.instagram.com/' + contact.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Image
-                    src="/instagram.png"
-                    alt="Instagram"
-                    style={{ maxHeight: '3vh' }}
-                  />
-                </Link>
-                }
+                    to={'https://www.instagram.com/' + contact.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Image
+                      src="/instagram.png"
+                      alt="Instagram"
+                      style={{ maxHeight: '3vh' }}
+                    />
+                  </Link>
+                )}
               </Stack>
               {/* <ListGroup className="list-group-flush">
                 {contact.lineLink && (
