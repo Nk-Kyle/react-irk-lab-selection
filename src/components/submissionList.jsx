@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Button, ListGroup, Form, Spinner } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 export const SubmissionList = ({ submissions, onScoreUpdate }) => {
   const [loadingStates, setLoadingStates] = useState(
@@ -73,9 +74,13 @@ export const SubmissionList = ({ submissions, onScoreUpdate }) => {
               </div>
             </div>
             <div className="ml-auto">
-              <Button href={submission.link} variant="primary">
-                View Submission
-              </Button>
+              <Link
+                to={submission.link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button variant="primary">View Submission</Button>
+              </Link>
             </div>
           </div>
           <div className="d-flex flex-wrap align-items-center mt-2">
