@@ -13,6 +13,7 @@ export const Manage = () => {
   const [imageUrl, setImageUrl] = useState('')
   const [startDate, setStartDate] = useState('')
   const [score, setScore] = useState(0)
+  const [multiplier, setMultiplier] = useState(1)
   const [validated, setValidated] = useState(false)
   const [fetchedData, setFetchedData] = useState(false)
   const [showSuccessModal, setShowSuccessModal] = useState(false)
@@ -111,6 +112,7 @@ export const Manage = () => {
           startDate: startDate,
           link: link,
           score: score,
+          multiplier: multiplier,
         }
         fetch(process.env.REACT_APP_BACKEND + '/api/task', {
           method: 'POST',
@@ -240,6 +242,23 @@ export const Manage = () => {
                     value={score}
                     onChange={(e) => setScore(e.target.value)}
                   />
+                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group controlId="formMultiplier" className='mb-3'>
+                  <Form.Label>Multiplier</Form.Label>
+                  <Form.Control
+                    required
+                    as="select"
+                    value={multiplier}
+                    onChange={(e) => setMultiplier(e.target.value)}
+                  >
+                    <option value={1}>100%</option>
+                    <option value={0.95}>95%</option>
+                    <option value={0.9}>90%</option>
+                    <option value={0.85}>85%</option>
+                    <option value={0.8}>80%</option>
+                  </Form.Control>
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
 

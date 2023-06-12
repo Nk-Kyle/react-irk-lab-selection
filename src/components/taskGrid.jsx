@@ -32,10 +32,6 @@ export const TaskGrid = ({ tasks }) => {
                     <div className={styles.text}>Go to task</div>
                   </div>
                 </div>
-                {/* <Card.Body className="flex-grow-1">
-                <Card.Title></Card.Title>
-                <div style={{ whiteSpace: 'pre-wrap' }}>{task.description}</div>
-              </Card.Body> */}
                 <ListGroup className="list-group-flush">
                   <ListGroup.Item>
                     <h4 className="fw-bold">{task.title}</h4>
@@ -51,6 +47,11 @@ export const TaskGrid = ({ tasks }) => {
                     <span className="fw-bold">Submissions:</span>{' '}
                     {task.submissionCount}
                   </ListGroup.Item>
+                  <ListGroup.Item>
+                    <span className="fw-bold">Multiplier:</span>{' '}
+                    {task.multiplier * 100}%
+                  </ListGroup.Item>
+
                   {/* <ListGroup.Item>
                   <div className="d-grid gap-2">
                   <Button

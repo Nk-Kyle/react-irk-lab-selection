@@ -18,15 +18,7 @@ import { getWithExpiry } from './utils/expiryStorage'
 
 function App() {
   const navigate = useNavigate()
-  const app = initializeApp({
-    "apiKey": "AIzaSyAB_kK-BEaRb8U6Xs-KA9_gfHJwYhClrYU",
-    "authDomain": "seleksiirk.firebaseapp.com",
-    "projectId": "seleksiirk",
-    "storageBucket": "seleksiirk.appspot.com",
-    "messagingSenderId": "82344765563",
-    "appId": "1:82344765563:web:8ecaf8b79492dc5d859ade",
-    "measurementId": "G-1D0N74LWVZ"
-  })
+  const app = initializeApp(JSON.parse(process.env.REACT_APP_FIREBASE_CONFIG))
   getAnalytics(app)
 
   useEffect(() => {
