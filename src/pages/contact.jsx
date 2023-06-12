@@ -3,6 +3,7 @@ import { ErrorModal } from '../components/errorModal'
 import React, { useEffect, useState } from 'react'
 import { ContactGrid } from '../components/contactGrid'
 import { LoadingWrapper } from '../components/loadingWrapper'
+import { useFirebaseRoutesAnalytics } from '../utils/analytics'
 
 export const Contact = () => {
   const [contacts, setContacts] = useState([])
@@ -13,6 +14,8 @@ export const Contact = () => {
   useEffect(() => {
     fetchContacts()
   }, [])
+
+  useFirebaseRoutesAnalytics()
 
   const fetchContacts = async () => {
     try {

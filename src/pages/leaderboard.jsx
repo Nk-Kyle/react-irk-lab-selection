@@ -4,10 +4,12 @@ import { Table } from 'react-bootstrap'
 import { ErrorModal } from '../components/errorModal'
 import { useNavigate } from 'react-router-dom'
 import { LoadingWrapper } from '../components/loadingWrapper'
+import { useFirebaseRoutesAnalytics } from '../utils/analytics'
 
 export const Leaderboard = () => {
   const [showErrorModal, setShowErrorModal] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  useFirebaseRoutesAnalytics()
   const errorMessage =
     'Reload the page and try again. If the problem persists, contact the administrator.'
   useEffect(() => {

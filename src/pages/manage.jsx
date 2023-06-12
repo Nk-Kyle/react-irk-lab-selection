@@ -4,6 +4,7 @@ import { NavbarComponent } from '../components/navbar'
 import { SuccessModal } from '../components/successModal'
 import { ErrorModal } from '../components/errorModal'
 import { SubmissionList } from '../components/submissionList'
+import { useFirebaseRoutesAnalytics } from '../utils/analytics'
 
 export const Manage = () => {
   const [link, setLink] = useState('')
@@ -19,6 +20,7 @@ export const Manage = () => {
   const [submissionList, setSubmissionList] = useState([])
   const [showErrorModal, setShowErrorModal] = useState(false)
   const [loading, setLoading] = useState(false)
+  useFirebaseRoutesAnalytics()
 
   useEffect(() => {
     fetchTask()

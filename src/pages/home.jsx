@@ -4,12 +4,14 @@ import { ErrorModal } from '../components/errorModal'
 import React, { useEffect, useState } from 'react'
 import { LoadingWrapper } from '../components/loadingWrapper'
 import { Countdown } from '../components/countdown'
+import { useFirebaseRoutesAnalytics } from '../utils/analytics'
 
 export const Home = () => {
   const [tasks, setTasks] = useState([])
   const [showErrorModal, setShowErrorModal] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [endTime, setEndTime] = useState('')
+  useFirebaseRoutesAnalytics()
   const errorMessage =
     'Reload the page and try again. If the problem persists, contact the administrator.'
   useEffect(() => {

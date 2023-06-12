@@ -10,12 +10,24 @@ import { Leaderboard } from './pages/leaderboard'
 import { NotFound } from './pages/notFound'
 import { About } from './pages/about'
 import { ProtectedRoute } from './components/protectedRoute'
-// import { Analytics } from '@vercel/analytics/react'
+import { initializeApp } from 'firebase/app'
+import { getAnalytics } from 'firebase/analytics'
+import { Analytics } from '@vercel/analytics/react'
 
 import { getWithExpiry } from './utils/expiryStorage'
 
 function App() {
   const navigate = useNavigate()
+  const app = initializeApp({
+    "apiKey": "AIzaSyAB_kK-BEaRb8U6Xs-KA9_gfHJwYhClrYU",
+    "authDomain": "seleksiirk.firebaseapp.com",
+    "projectId": "seleksiirk",
+    "storageBucket": "seleksiirk.appspot.com",
+    "messagingSenderId": "82344765563",
+    "appId": "1:82344765563:web:8ecaf8b79492dc5d859ade",
+    "measurementId": "G-1D0N74LWVZ"
+  })
+  getAnalytics(app)
 
   useEffect(() => {
     const token = getWithExpiry('irk-token')
@@ -25,7 +37,8 @@ function App() {
   }, [navigate])
 
   return (
-    <Routes>
+    <div>
+      <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Home />} />
       <Route path="/contact" element={<Contact />} />
@@ -38,6 +51,9 @@ function App() {
       <Route path="/about" element={<About />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
+    <Analytics />
+    </div>
+    
   )
 }
 

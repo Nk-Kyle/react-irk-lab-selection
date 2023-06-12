@@ -1,7 +1,9 @@
 import { NavbarComponent } from '../components/navbar'
 import { Accordion } from 'react-bootstrap'
+import { useFirebaseRoutesAnalytics } from '../utils/analytics'
 
 export const About = () => {
+  useFirebaseRoutesAnalytics()
   return (
     <div>
       <NavbarComponent />

@@ -16,6 +16,7 @@ import { useParams } from 'react-router-dom'
 import { useNavigate, Link } from 'react-router-dom'
 import { ProtectedComponent } from '../components/protectedComponent'
 import { SubmissionEntries } from '../components/submissionEntries'
+import { useFirebaseRoutesAnalytics } from '../utils/analytics'
 
 export const Task = () => {
   const [link, setLink] = useState('')
@@ -29,6 +30,8 @@ export const Task = () => {
   const [submissionList, setSubmissionList] = useState([])
   const { id } = useParams()
   const navigate = useNavigate()
+
+  useFirebaseRoutesAnalytics()
 
   useEffect(() => {
     fetchTask()
