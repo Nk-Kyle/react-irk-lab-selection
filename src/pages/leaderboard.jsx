@@ -77,47 +77,47 @@ export const Leaderboard = () => {
       <NavbarComponent />
       <h1 className="pb-3 mb-4 text-center">Leaderboard</h1>
       <LoadingWrapper isLoading={isLoading}>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>User</th>
-            {scores.map((task) => (
-              <th
-                key={task.id}
-                className="text-center"
-                onClick={() => handleNavigate(task.id)}
-                style={{ cursor: 'pointer' }}
-                onMouseOver={(e) =>
-                  (e.target.style.backgroundColor = '#f5f5f5')
-                }
-                onMouseOut={(e) => (e.target.style.backgroundColor = '')}
-              >
-                {task.title}
-              </th>
-            ))}
-            <th className="text-center">Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user.student_name}>
-              <td>{user.student_name}</td>
-              {scores.map((task) => {
-                const submission = task.submissions.find(
-                  (sub) => sub.student_name === user.student_name,
-                )
-                const score = submission ? submission.score : '-'
-                return (
-                  <td key={task.id} className="text-center">
-                    {score}
-                  </td>
-                )
-              })}
-              <td className="text-center">{user.score}</td>
+        <Table striped bordered hover responsive>
+          <thead>
+            <tr>
+              <th>User</th>
+              {scores.map((task) => (
+                <th
+                  key={task.id}
+                  className="text-center"
+                  onClick={() => handleNavigate(task.id)}
+                  style={{ cursor: 'pointer' }}
+                  onMouseOver={(e) =>
+                    (e.target.style.backgroundColor = '#f5f5f5')
+                  }
+                  onMouseOut={(e) => (e.target.style.backgroundColor = '')}
+                >
+                  {task.title}
+                </th>
+              ))}
+              <th className="text-center">Total</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {users.map((user) => (
+              <tr key={user.student_name}>
+                <td>{user.student_name}</td>
+                {scores.map((task) => {
+                  const submission = task.submissions.find(
+                    (sub) => sub.student_name === user.student_name,
+                  )
+                  const score = submission ? submission.score : '-'
+                  return (
+                    <td key={task.id} className="text-center">
+                      {score}
+                    </td>
+                  )
+                })}
+                <td className="text-center">{user.score}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       </LoadingWrapper>
       <ErrorModal
         show={showErrorModal}
