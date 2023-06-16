@@ -14,7 +14,6 @@ export const Login = () => {
       client_id: process.env.REACT_APP_OAUTH_CLIENT_ID,
       callback: handleCredentialResponseIn,
       ux_mode: 'popup',
-      hd: 'gmail.com',
     })
     google.accounts.id.renderButton(document.getElementById('g_id_button'), {
       theme: 'outline',
