@@ -54,6 +54,7 @@ export const Manage = () => {
         setDescription(data.task.description)
         setImageUrl(data.task.imageUrl)
         setScore(data.task.score)
+        setMultiplier(data.task.multiplier)
 
         // Set the start Date from data.task.startDate of format timestamp
         const startDate = new Date(data.task.startDate)
