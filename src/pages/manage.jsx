@@ -193,7 +193,7 @@ export const Manage = () => {
                     placeholder="Enter description (max 100 characters)"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    maxLength={100}
+                    maxLength={500}
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
