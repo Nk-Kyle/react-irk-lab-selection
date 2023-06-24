@@ -12,7 +12,7 @@ import { About } from './pages/about'
 import { ProtectedRoute } from './components/protectedRoute'
 import { initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
-import { Analytics } from '@vercel/analytics/react'
+// import { Analytics } from '@vercel/analytics/react'
 
 import { getWithExpiry } from './utils/expiryStorage'
 
@@ -43,7 +43,7 @@ function App() {
       <Route path="/about" element={<About />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
-    <Analytics />
+    {/* <Analytics /> */}
     </div>
     
   )

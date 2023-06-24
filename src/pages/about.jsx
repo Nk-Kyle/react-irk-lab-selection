@@ -84,6 +84,19 @@ export const About = () => {
               Submisi dapat diubah selama submisi belum dinilai oleh asisten.
               <br />
               <br />
+              <p>
+              Submisi untuk setiap task dengan ketentuan tambahan:
+              </p>
+              <ul>
+                <li>
+                  <p>Untuk project, yang disubmit link ke <a href='https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository' target='_blank'> release github</a> </p>
+                </li>
+                <li>
+                  <p>
+                    Dilarang pakai url shortener. Contoh: bit.ly, tinyurl, dll
+                  </p>
+                </li>
+              </ul>
               <b>
                 Submisi dinilai adalah submisi terakhir beserta timestamp
                 terakhir tersebut untuk bobot kecepatan
