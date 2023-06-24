@@ -89,7 +89,7 @@ export const About = () => {
               </p>
               <ul>
                 <li>
-                  <p>Untuk project, yang disubmit link ke <a href='https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository' target='_blank'> release github</a> </p>
+                  <p>Untuk project, yang disubmit berupa link ke <a href='https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository' target='_blank'> release github</a> project yang akan dinilai</p>
                 </li>
                 <li>
                   <p>
