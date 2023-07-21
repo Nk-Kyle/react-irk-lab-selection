@@ -80,6 +80,7 @@ export const Leaderboard = () => {
         <Table striped bordered hover responsive>
           <thead>
             <tr>
+              <th>Rank</th>
               <th>User</th>
               {scores.map((task) => (
                 <th
@@ -99,8 +100,9 @@ export const Leaderboard = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
+            {users.map((user, index) => (
               <tr key={user.student_name}>
+                <td className="text-center">{index + 1}</td>
                 <td>{user.student_name}</td>
                 {scores.map((task) => {
                   const submission = task.submissions.find(

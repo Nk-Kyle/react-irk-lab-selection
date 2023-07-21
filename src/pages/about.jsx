@@ -13,15 +13,15 @@ export const About = () => {
           <Accordion.Header>Selection Scheme</Accordion.Header>
           <Accordion.Body>
             <p>
-              Seleksi akan dilakukan dengan cara pengerjaan task yang diberikan oleh
-              masing-masing asisten yang akan menjadi penilai.
+              Seleksi akan dilakukan dengan cara pengerjaan task yang diberikan
+              oleh masing-masing asisten yang akan menjadi penilai.
               <br />
               <br />
               Tipe dan skema tiap task dapat berbeda setiap asisten.
               <br />
-              Mahasiswa yang lolos seleksi dinilai berdasarkan leaderboard pada akhir
-              seleksi yang diumumkan kemudian serta mempertimbangkan kebutuhan
-              asisten Ganesha maupun Jatinangor.
+              Mahasiswa yang lolos seleksi dinilai berdasarkan leaderboard pada
+              akhir seleksi yang diumumkan kemudian serta mempertimbangkan
+              kebutuhan asisten Ganesha maupun Jatinangor.
               <br />
               <br />
               Skor dapat dilihat pada halaman{' '}
@@ -30,10 +30,10 @@ export const About = () => {
               <br />
               Task yang dapat dikerjakan akan muncul pada &nbsp;
               <a href="/">halaman awal</a>
-              <br/>
-              <br/>
+              <br />
+              <br />
               Task akan bertambah seiring jalannya waktu
-              <br/>
+              <br />
               Setiap penambahan task akan diumumkan ke grup line
             </p>
           </Accordion.Body>
@@ -51,24 +51,24 @@ export const About = () => {
               </li>
               <li>
                 <p>
-                  Skor yang didapat adalah hasil perkalian bobot kecepatan (Multiplier)
-                  dengan skor dasar nilai
+                  Skor yang didapat adalah hasil perkalian bobot kecepatan
+                  (Multiplier) dengan skor dasar nilai
                 </p>
               </li>
               <li>
                 <p>
-                  Multiplier untuk submisi pertama yang diacc oleh asisten adalah 100%
+                  Multiplier untuk submisi pertama yang diacc oleh asisten
+                  adalah 100%
                 </p>
               </li>
               <li>
                 <p>
-                  Multiplier akan dikurangi nilainya sebesar 5% untuk setiap submisi masuk yang diacc oleh asisten
+                  Multiplier akan dikurangi nilainya sebesar 5% untuk setiap
+                  submisi masuk yang diacc oleh asisten
                 </p>
               </li>
               <li>
-                <p>
-                  Nilai minimum dari Multiplier adalah 80%
-                </p>
+                <p>Nilai minimum dari Multiplier adalah 80%</p>
               </li>
             </ul>
           </Accordion.Body>
@@ -84,12 +84,21 @@ export const About = () => {
               Submisi dapat diubah selama submisi belum dinilai oleh asisten.
               <br />
               <br />
-              <p>
-              Submisi untuk setiap task dengan ketentuan tambahan:
-              </p>
+              <p>Submisi untuk setiap task dengan ketentuan tambahan:</p>
               <ul>
                 <li>
-                  <p>Untuk project, yang disubmit berupa link ke <a href='https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository' target='_blank'> release github</a> project yang akan dinilai</p>
+                  <p>
+                    Untuk project, yang disubmit berupa link ke{' '}
+                    <a
+                      href="https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {' '}
+                      release github
+                    </a>{' '}
+                    project yang akan dinilai
+                  </p>
                 </li>
                 <li>
                   <p>
